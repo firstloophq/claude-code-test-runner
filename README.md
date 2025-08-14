@@ -1,25 +1,40 @@
 # Claude Code Test Runner
 
-This project implements fully E2E test automation using Claude Code.
-Tests are defined as sequential, naturla language steps.
-Claude Code handles the actual browser automation through Playwright MCP,
-making decisions about element selection, timing, and validation based on the test descriptions.
+This project enables full E2E test automation using Claude Code.
 
-## Why do automated testing with Claude Code?
+Tests are defined using simple natural language steps.
+Claude Code performs these steps sequentially in a browser through the Playwright MCP,
+making decisions about element selection, timing,
+and validation based on the test descriptions.
 
-This test runner does not intend to replace traditional unit, integration, or manual testing strategies.
+## Why Claude Code as a test runner?
+
+Professional software engineers have been successfully writing automated tests for decades.
+With the introduction of tools like Claude Code, traditional tests can be written even faster.
+Why would anyone use Claude Code as a test runner?
+
+First, this test runner was not made to replace traditional unit, integration, or manual testing strategies.
 It is meant to bolster confidence in the final end-to-end experience of your web application.
-Claude Code Test Runner sits somewhere between traditional automated E2E tests and manual E2E sanity tests.
+Ideally, the Claude Code Test Runner sits somewhere between traditional automated E2E tests
+and manual E2E sanity tests.
 
-Claude Code can execute tests like a real human without time constraints:
+### Claude Code can execute tests like a real human
+
+Imagine performing manual E2E tests with human-like intuition dozens or hundreds of times each day. That's what Claude Code Test Runner can deliver.
 
 - **Natural language test definitions**: Tests describe what to test rather than how to test it
 - **Visual understanding**: Can validate UI states based on visual appearance
 - **Highly scalable**: Run as many tests as you are willing to pay for (requires Claude Code subscriptions or incurs API costs).
 
+### Claude Code can roll with the punches
+
 E2E tests typically tie together a large number of discrete systems.
-A lot can happen in the span of a single test, and it is difficult to write traditional E2E tests that account for every edge case. 
-On the contrary, Claude Code is not tripped up by network blips, minor UX updates, and other innocuous changes and hiccups:
+A lot can happen in the span of a single test,
+and it is difficult to write traditional E2E tests that account for every edge case. 
+
+Claude Code is highly adaptive. It is not tripped up by network blips, minor UX updates, 
+or other innocuous changes and hiccups. It's the perfect test runner for environments
+where a lot can go wrong.
 
 - **Adaptive element selection**: Finds elements based on context rather than fixed selectors
 - **UI change adaptation**: When elements move or change appearance, Claude Code uses context and visual cues to locate them rather than failing on selector mismatches
@@ -30,8 +45,8 @@ On the contrary, Claude Code is not tripped up by network blips, minor UX update
 ### Test Definitions
 
 Tests are defined in JSON using sequential, natural language steps.
-The expected schema is a JSON array of [TestCase](/cli/src/types/test-case.ts) objects.
-See [/samples/thisinto-e2e-tests.json](/samples/thisinto-e2e-tests.json) for a concrete example.
+The expected schema is a JSON array of [TestCase](cli/src/types/test-case.ts) objects.
+See [samples/thisinto-e2e-tests.json](samples/thisinto-e2e-tests.json) for a concrete example.
 
 ### CLI
 
