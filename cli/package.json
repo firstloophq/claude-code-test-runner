@@ -1,0 +1,37 @@
+{
+  "name": "claude-code-tests",
+  "module": "index.ts",
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/bun": "latest",
+    "eslint": "^9.33.0",
+    "globals": "^16.3.0",
+    "knip": "^5.62.0",
+    "typescript-eslint": "^8.39.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "private": true,
+  "scripts": {
+    "build": "bun build --compile ./src/index.ts --outfile ./dist/cc-test-runner --target bun",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix"
+  },
+  "type": "module",
+  "dependencies": {
+    "@anthropic-ai/claude-code": "^1.0.77",
+    "@anthropic-ai/sdk": "^0.60.0",
+    "@modelcontextprotocol/sdk": "^1.17.2",
+    "@playwright/mcp": "v0.0.31",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.1",
+    "ctrf": "0.0.13-next.6",
+    "eslint-plugin-jsdoc": "^54.0.0",
+    "express": "^5.1.0",
+    "playwright": "^1.49.1",
+    "ts-command-line-args": "^2.5.1",
+    "winston": "^3.17.0",
+    "zod": "^4.0.17"
+  }
+}

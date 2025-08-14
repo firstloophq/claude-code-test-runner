@@ -1,0 +1,23 @@
+[
+    {
+        "id": "login-test-case",
+        "description": "Test logging into staging.thisinto.com",
+        "steps": [
+            { "id": 1, "description": "Navigate to staging.thisinto.com" },
+            { "id": 2, "description": "Enter email address: cody@caretai.app" },
+            { "id": 3, "description": "Enter password: <password>" },
+            { "id": 4, "description": "Click login button" },
+            { "id": 5, "description": "Verify successful login" }
+        ]
+    },
+    {
+        "id": "create-template-test-case",
+        "description": "Test creating a new template",
+        "steps": [
+            { "id": 1, "description": "Navigate to staging.thisinto.com/dashboard" },
+            { "id": 2, "description": "Create a new template" },
+            { "id": 3, "description": "Fill in the instructions for the template" },
+            { "id": 4, "description": "Add two fields to the template" }
+        ]
+    }
+]

@@ -1,0 +1,54 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+  merge_group:
+    branches:
+      - main
+
+jobs:
+  lint-and-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - name: Install dependencies
+      run: bun install
+      working-directory: ./cli
+
+    - name: Run ESLint
+      run: bun run lint
+      working-directory: ./cli
+
+    - name: Run Knip
+      run: bunx knip
+      working-directory: ./cli
+
+    - name: Build project
+      run: bun run build
+      working-directory: ./cli
+
+  docker-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: false
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
