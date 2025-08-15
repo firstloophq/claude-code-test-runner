@@ -26,6 +26,13 @@ jobs:
     - name: Run Claude Code Tests
       run: /app/cc-test-runner --testsPath=$GITHUB_WORKSPACE/samples/thisinto-e2e-tests.json --resultsPath=/test/results/
 
+    - name: Publish Test Report
+      uses: ctrf-io/github-test-reporter@v1
+      with:
+        report-path: '/test/results/**/ctrf-results.json'
+        github-report: true
+      if: always()
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       if: always()

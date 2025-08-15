@@ -35,29 +35,24 @@ export class TestReporter {
      * @returns The CTRF report.
      */
     generateCTRF(): Report {
-        const totalTests = this.results.reduce((sum, r) => sum + r.testCase.steps.length, 0);
-        const passed = this.results.reduce((sum, r) => sum + r.testCase.steps.filter((s) => s.status === "passed").length, 0);
-        const failed = this.results.reduce((sum, r) => sum + r.testCase.steps.filter((s) => s.status === "failed").length, 0);
-        const pending = this.results.reduce((sum, r) => sum + r.testCase.steps.filter((s) => s.status === "pending").length, 0);
+        const totalTests = this.results.length;
+        const passed = this.results.filter((r) => r.succeeded).length;
+        const failed = this.results.filter((r) => !r.succeeded).length;
 
         const tests: Test[] = [];
         for (const result of this.results) {
-            const testTime = (result.endTime.getTime() - result.startTime.getTime()) / 1000;
-
-            for (const step of result.testCase.steps) {
-                const stepTime = testTime / result.testCase.steps.length;
-
-                tests.push({
-                    name: step.description,
-                    status: step.status === "passed" ? "passed" : step.status === "failed" ? "failed" : "skipped",
-                    duration: Math.round(stepTime * 1000), // CTRF uses milliseconds
-                    start: result.startTime.getTime(),
-                    stop: result.endTime.getTime(),
-                    suite: result.testCase.id,
-                    message: step.error || undefined,
-                    trace: step.error ? step.error : undefined,
-                });
-            }
+            tests.push({
+                name: result.testCase.description,
+                status: result.succeeded ? "passed" : "failed",
+                duration: result.endTime.getTime() - result.startTime.getTime(), // CTRF uses milliseconds
+                start: result.startTime.getTime(),
+                stop: result.endTime.getTime(),
+                message:
+                    result.testCase.steps
+                        .filter((s) => s.status !== "passed")
+                        ?.map((s) => `[Step ${s.id}][Status: ${s.status}]${s.error ? `[Error: ${s.error}]` : ""}`)
+                        .join("\n") || undefined,
+            });
         }
 
         return {
@@ -72,8 +67,8 @@ export class TestReporter {
                     tests: totalTests,
                     passed,
                     failed,
-                    pending,
-                    skipped: pending, // treating pending as skipped for CTRF
+                    pending: 0,
+                    skipped: 0,
                     other: 0,
                     start: this.results[0]?.startTime.getTime() || Date.now(),
                     stop: this.results[this.results.length - 1]?.endTime.getTime() || Date.now(),
