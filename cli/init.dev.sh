@@ -17,8 +17,4 @@ bunx playwright install chrome
 echo "Installing Claude Code..."
 bun install -g @anthropic-ai/claude-code
 
-echo "Configuring MCP servers..."
-claude mcp add playwright --scope project bunx @playwright/mcp@v0.0.31
-claude mcp add testState --scope project --transport http http://localhost:3001
-
 echo "Finished init.dev.sh!"

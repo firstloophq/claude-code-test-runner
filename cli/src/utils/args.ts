@@ -44,9 +44,10 @@ try {
     process.exit(1);
 }
 
+const startTime = new Date();
 const inputs = {
     testCases,
-    resultsPath: args.resultsPath || "./results",
+    resultsPath: (args.resultsPath || "./results") + "/" + startTime.toISOString(),
     verbose: args.verbose,
     maxTurns: args.maxTurns,
 };

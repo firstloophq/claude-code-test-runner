@@ -89,6 +89,18 @@ Build the CLI: `bun run build`
 The CLI described above is also bundled into a Docker container, available on GHCR.
 This container can be used directly in GitHub actions, as demonstrated [here](.github/workflows/sample-tests-action.yml)
 
+IMPORTANT: you must provide either an OAuth token or API key via the `CLAUDE_CODE_OAUTH_TOKEN` or `ANTHROPIC_API_KEY` env vars.
+
+### Debugging and logs
+
+The results directory for each test run contains the following:
+
+- Overall test results:
+    - CTRF format: `{results path}/ctrf-report.json`
+    - Markdown: `{results path}/test-summary.md`
+- Per test Playwright traces: `{results path}/{test case id}/traces`
+- Per test screenshots taken by Claude Code at critical points of the test: `{results path}/{test case id}/*.png`
+
 ## Architecture
 
 The system has three main components:
