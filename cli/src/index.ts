@@ -19,7 +19,7 @@ for (const testCase of inputs.testCases) {
     });
     server.setTestState(testCase);
 
-    for await (const message of startTest()) {
+    for await (const message of startTest(testCase)) {
         logger.debug("Received Claude Code message", {
             test_id: testCase.id,
             message: JSON.stringify(message),
@@ -45,3 +45,5 @@ for (const testCase of inputs.testCases) {
 
 // Generate and save test reports
 reporter.saveResults(inputs.resultsPath);
+
+server.stop();

@@ -7,6 +7,11 @@ const transports: winston.transport[] = [
         level: inputs.verbose ? "debug" : "info",
         format: winston.format.combine(winston.format.timestamp(), winston.format.colorize(), winston.format.simple()),
     }),
+    new winston.transports.File({
+        filename: `${inputs.resultsPath}/debug.log`,
+        level: "debug",
+        format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+    }),
 ];
 
 // Create the logger instance
