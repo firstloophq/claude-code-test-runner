@@ -1,51 +1,28 @@
 import { readFileSync } from "fs";
-import { parse } from "ts-command-line-args";
 import { testCaseSchema, type TestCase } from "../types/test-case";
 import z from "zod";
 import { logger } from "./logger";
+import { Command } from "commander";
 
-// Parse CLI arguments.
-const args = parse<{
+export interface CLIOptions {
     testsPath: string;
-    resultsPath?: string;
+    resultsPath: string;
     verbose: boolean;
     maxTurns: number;
     screenshots: boolean;
     model?: string;
-}>({
-    testsPath: {
-        type: String,
-        description: "Path to the tests file",
-        alias: "t",
-    },
-    resultsPath: {
-        type: String,
-        description: "Path to the results file",
-        alias: "o",
-        optional: true,
-    },
-    verbose: {
-        type: Boolean,
-        description: "Verbose output, including all Claude Code messages.",
-        alias: "v",
-    },
-    maxTurns: {
-        type: Number,
-        description: "Maximum number of turns Claude Code can take for each test case.",
-        defaultValue: 30,
-    },
-    screenshots: {
-        type: Boolean,
-        description: "Take screenshots of the browser at each step.",
-        defaultValue: false,
-    },
-    model: {
-        type: String,
-        description: "The model to use for the test run.",
-        alias: "m",
-        optional: true,
-    },
-});
+}
+
+const program = new Command()
+    .requiredOption("-t, --testsPath <path>", "Path to the tests file")
+    .option("-o, --resultsPath <path>", "Path to the results file", `./results/${new Date().getMilliseconds()}`)
+    .option("-v, --verbose", "Verbose output, including all Claude Code messages.")
+    .option("-s, --screenshots", "Take screenshots of the browser at each step.")
+    .option("--maxTurns <turns>", "Maximum number of turns Claude Code can take for each test case.", "30")
+    .option("-m, --model <model>", "The model to use for the test run.")
+    .parse(process.argv);
+
+const args = program.opts<CLIOptions>();
 
 // Read in the test file.
 const testCasesJson = readFileSync(args.testsPath, "utf8");
@@ -57,13 +34,9 @@ try {
     process.exit(1);
 }
 
-const inputs = {
+const inputs: CLIOptions & { testCases: TestCase[] } = {
+    ...args,
     testCases,
-    resultsPath: args.resultsPath || `./results/${new Date().getMilliseconds()}`,
-    verbose: args.verbose,
-    maxTurns: args.maxTurns,
-    screenshots: args.screenshots,
-    model: args.model,
 };
 
 export { inputs };
