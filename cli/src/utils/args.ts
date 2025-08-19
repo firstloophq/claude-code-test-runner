@@ -4,7 +4,7 @@ import z from "zod";
 import { logger } from "./logger";
 import { Command } from "commander";
 
-export interface CLIOptions {
+interface CLIOptions {
     testsPath: string;
     resultsPath: string;
     verbose: boolean;
