@@ -24,7 +24,14 @@ export const startTest = (testCase: TestCase) => {
             mcpServers: {
                 "cctr-playwright": {
                     command: "bunx",
-                    args: ["@playwright/mcp@v0.0.31", "--output-dir", `${inputs.resultsPath}/${testCase.id}/playwright`, "--save-trace"],
+                    args: [
+                        "@playwright/mcp@v0.0.31",
+                        "--output-dir",
+                        `${inputs.resultsPath}/${testCase.id}/playwright`,
+                        "--save-trace",
+                        "--image-responses",
+                        "omit",
+                    ],
                 },
                 "cctr-state": {
                     type: "http",

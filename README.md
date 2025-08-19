@@ -103,6 +103,35 @@ The results directory for each test run contains the following:
 
 ## Architecture
 
+```mermaid
+graph LR
+    subgraph Host
+        subgraph CLI
+            RUNNER["Test Runner"]
+            SDK["Claude Code SDK"]
+            STATE["Test State MCP (custom)"]
+        end
+        MCP["Playwright MCP"]
+        Browser["Sandbox Chrome Browser"]
+    end
+    API["Anthropic API"]
+    
+    RUNNER -->|1 Posts steps for test| STATE
+    RUNNER -->|2 Starts test run| SDK
+    STATE -->|4 Gets final state| RUNNER
+    SDK <-->|3a Messages| API
+    SDK -->|3c Updates steps| STATE
+    SDK <-->|3b Browser instrumentation & feedback| MCP
+    MCP -->|Instruments| Browser
+    
+    style RUNNER fill:#bfb,stroke:#333,stroke-width:2px,color:#000
+    style SDK fill:#f9f,stroke:#333,stroke-width:2px,color:#000
+    style API fill:#ff9,stroke:#333,stroke-width:2px,color:#000
+    style STATE fill:#f89,stroke:#333,stroke-width:2px,color:#000
+    style MCP fill:#bbf,stroke:#333,stroke-width:2px,color:#000
+    style Browser fill:#fbb,stroke:#333,stroke-width:2px,color:#000
+```
+
 The system has three main components:
 
 1. **Test Runner CLI**: Bun-based orchestrator that manages test execution.
