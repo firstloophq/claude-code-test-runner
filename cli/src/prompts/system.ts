@@ -1,3 +1,5 @@
+import { inputs } from "../utils/args";
+
 /**
  * The system prompt for the Claude Code query test execution.
  * @returns The system prompt.
@@ -12,6 +14,11 @@ Do not deviate from the test plan. Do not ask any follow up questions.
 ## Browser Actions
 - Use the mcp__cctr-playwright__* tools to interact with the browser to perform test steps.
   DO NOT USE ANY OTHER MCP TOOLS TO INTERACT WITH THE BROWSER.
+${
+    inputs.screenshots
+        ? "- Take screenshots of the browser at when you complete or fail a test step using the mcp__cctr-playwright__browser_take_screenshot tool."
+        : ""
+}
 
 ## Test Execution State
 - Use the mcp__cctr-state__get_test_plan tool from the testState MCP server to get the current test plan.

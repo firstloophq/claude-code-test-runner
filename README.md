@@ -70,6 +70,7 @@ Build the CLI: `bun run build`
 | `--resultsPath` | `-o` | string | No | `./results` | Directory where test results will be saved |
 | `--verbose` | `-v` | boolean | No | `false` | Enable verbose output including all Claude Code messages |
 | `--maxTurns` | - | number | No | `30` | Maximum number of interactions Claude Code can make per test case |
+| `--screenshots` | - | boolean | No | `false` | Whether to take screenshots upon completion of each test step. Note: this can significantly increase the number of tool calls made by Claude and slow test execution. |
 
 #### Example Commands
 
