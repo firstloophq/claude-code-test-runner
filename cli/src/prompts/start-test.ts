@@ -21,6 +21,7 @@ export const startTest = (testCase: TestCase) => {
             customSystemPrompt: systemPrompt(),
             maxTurns: inputs.maxTurns,
             pathToClaudeCodeExecutable: claudePath,
+            model: inputs.model,
             mcpServers: {
                 "cctr-playwright": {
                     command: "bunx",
