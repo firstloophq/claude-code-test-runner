@@ -11,6 +11,7 @@ const args = parse<{
     verbose: boolean;
     maxTurns: number;
     screenshots: boolean;
+    model?: string;
 }>({
     testsPath: {
         type: String,
@@ -38,6 +39,12 @@ const args = parse<{
         description: "Take screenshots of the browser at each step.",
         defaultValue: false,
     },
+    model: {
+        type: String,
+        description: "The model to use for the test run.",
+        alias: "m",
+        optional: true,
+    },
 });
 
 // Read in the test file.
@@ -56,6 +63,7 @@ const inputs = {
     verbose: args.verbose,
     maxTurns: args.maxTurns,
     screenshots: args.screenshots,
+    model: args.model,
 };
 
 export { inputs };

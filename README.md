@@ -71,6 +71,7 @@ Build the CLI: `bun run build`
 | `--verbose` | `-v` | boolean | No | `false` | Enable verbose output including all Claude Code messages |
 | `--maxTurns` | - | number | No | `30` | Maximum number of interactions Claude Code can make per test case |
 | `--screenshots` | - | boolean | No | `false` | Whether to take screenshots upon completion of each test step. Note: this can significantly increase the number of tool calls made by Claude and slow test execution. |
+| `--model` | `-m` | string | No | Claude Code default | Override the default model with one from https://docs.anthropic.com/en/docs/about-claude/models/overview. Depending on the complexity of the test case, Claude Haiku 3.5 can do a solid job. |
 
 #### Example Commands
 
@@ -82,7 +83,7 @@ Build the CLI: `bun run build`
 ./dist/cc-test-runner -t ./e2e-tests.json -o ./test-output -v
 
 # Limit Claude Code interactions
-./dist/cc-test-runner --testsPath=./tests.json --maxTurns=50
+./dist/cc-test-runner --testsPath=./tests.json --maxTurns=20
 ```
 
 ### Docker Image + GitHub Actions
