@@ -10,6 +10,7 @@ const args = parse<{
     resultsPath?: string;
     verbose: boolean;
     maxTurns: number;
+    screenshots: boolean;
 }>({
     testsPath: {
         type: String,
@@ -32,6 +33,11 @@ const args = parse<{
         description: "Maximum number of turns Claude Code can take for each test case.",
         defaultValue: 30,
     },
+    screenshots: {
+        type: Boolean,
+        description: "Take screenshots of the browser at each step.",
+        defaultValue: false,
+    },
 });
 
 // Read in the test file.
@@ -49,6 +55,7 @@ const inputs = {
     resultsPath: args.resultsPath || `./results/${new Date().getMilliseconds()}`,
     verbose: args.verbose,
     maxTurns: args.maxTurns,
+    screenshots: args.screenshots,
 };
 
 export { inputs };
